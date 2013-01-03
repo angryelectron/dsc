@@ -1,0 +1,6 @@
+This is the firmware (Arduino sketch) for the DSC controller. Please see
+http://angryelectron.com/projects/dsc for more information.
+
+Set your Arduino IDE Sketchbook directory to this one to automatically include
+the dependent libraries (DallasTemperature and OneWire), if you don't have them
+installed elsewhere.

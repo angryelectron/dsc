@@ -1,1 +1,4 @@
 This is a CadSoft Eagle project for the DSC schematic capture and PCB layout. 
+
+Set your Eagle project directory to this one for easy access to projects,
+libraries, scripts, and design rules within the Eagle IDE.

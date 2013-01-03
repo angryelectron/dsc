@@ -1,6 +1,19 @@
 /*
- * Differential Solar Controler Header
- * Copyright 2009-2012 Andrew Bythell <abythell@ieee.org>
+  Differential Solar Controler Header
+  Copyright 2009-2012 Andrew Bythell <abythell@ieee.org>
+ 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef DSC_H
@@ -15,8 +28,9 @@
 #define DELTA_ON	10	/* collectors must be this much warmer than the tank before turning on */
 #define DELTA_OFF	2	/* collectors must be this much warmer than the tank before turning off */
 
-/* Define the addresses of the temperature sensors below.  The 'Multiple' example sketch in the DallasTemperature 
-   library can be used to discover devices and addresses on the 1-Wire bus.
+/* Define the addresses of the temperature sensors below.  The 'Multiple'
+ * example sketch in the DallasTemperature 
+ * library can be used to discover devices and addresses on the 1-Wire bus.
  */
 DeviceAddress roofSensor = {0x10, 0x1f, 0x4d, 0x83, 0x02, 0x08, 0x00, 0xE9};
 DeviceAddress tankSensor = {0x10, 0x25, 0x39, 0x57, 0x00, 0x08, 0x00, 0xf9};
