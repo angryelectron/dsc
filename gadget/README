@@ -1,0 +1,5 @@
+This is a Google Gadget for displaying the output temperatures of the DSC.
+
+Place gsolar.xml and screenshot.png on a webserver and update the URLS in
+gsolar.xml to match.  Data for the gadget is taken from 'solar.xml', which is
+produced by the dsc-monitor.sh script.

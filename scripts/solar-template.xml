@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<solar>
+	<timestamp>DATE</timestamp>
+	<state>STATE</state>
+	<gauge type="temp" unit="C" id="roof">ROOF</gauge>
+	<gauge type="temp" unit="C" id="tank">TANK</gauge>
+	<gauge type="temp" unit="C" id="inlet">INLET</gauge>
+	<gauge type="temp" unit="C" id="outlet">OUTLET</gauge>
+	<eff>EFFICIENCY</eff>
+</solar>

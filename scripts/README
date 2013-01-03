@@ -1,0 +1,4 @@
+These are Bash scripts to log DSC data and produce graphs using RRDtool, as
+well a generate XML data for use with the DSC Google Gadget.
+
+The scripts will probably need a lot of modification to run on your system.

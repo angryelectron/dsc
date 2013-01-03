@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+	<ModulePrefs title="Solar Hot Water" 
+		title_url="http://andrew-stephanie.ca/solar" 
+		description="Solar Hot Water System Status"
+		height="110"
+		width="400"
+		screenshot="http://andrew-stephanie.ca/dsc/screenshot.png"
+		thumbnail=""
+		author="Andrew Bythell" 
+		author_email="abythell@ieee.org" />
+	<Content type="html">
+		<![CDATA[
+			<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+			<script type="text/javascript">
+
+				//for displaying gauges
+				google.load("visualization", "1", {packages:['gauge']});
+
+				//needed to refresh XML content more than once an hour
+				function makeCachedRequest(url, callback, params, refreshInterval) 
+				{
+					var ts = new Date().getTime();
+					var sep = "?";
+					if (refreshInterval && refreshInterval > 0) 
+					{
+						ts = Math.floor(ts / (refreshInterval * 1000));
+					}
+					if (url.indexOf("?") > -1) 
+					{
+						sep = "&";
+					}
+					url = [ url, sep, "nocache=", ts ].join("");
+					gadgets.io.makeRequest(url, callback, params);
+				}
+
+				//gets XML data
+				function makeDOMRequest()
+				{
+					var params = {};
+					params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
+					var url = "http://andrew-stephanie.ca/dsc/solar.xml";
+					makeCachedRequest(url, response, params,60);
+				};
+
+				//create output
+				function response(obj)
+				{
+					var domdata = obj.data;
+
+					//get timestamp
+					var html = "";
+					var timestamp = domdata.getElementsByTagName("timestamp");
+					html += timestamp.item(0).firstChild.nodeValue;
+					document.getElementById('time_div').innerHTML = html;
+			
+					//get state
+					var status = parseInt(domdata.getElementsByTagName("state").item(0).firstChild.nodeValue);
+					var image;
+					switch(status)
+					{
+					case 0:
+						image = "red"; 
+						break;
+					case 1:
+						image = "green";
+						break;
+					case 2:
+						image = "yellow";
+						break;
+					case 3:
+						image = "blue";
+						break;
+					}
+					document.getElementById('status_div').innerHTML = "<div style='background: " + image + "; width: 100%'>&nbsp;</div>";	 	
+
+					//create gauges
+					var gauge = domdata.getElementsByTagName("gauge");
+					var data = new google.visualization.DataTable();
+					var options = {width: 380, height: 90, redFrom: 50, redTo: 100, yellowFrom: 25, yellowTo: 50, greenFrom:0, greenTo:25, minorTicks: 5};
+					var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+					data.addColumn('string', 'Label');
+					data.addColumn('number', 'Value');
+					data.addRows(gauge.length);
+					for (var i=0; i<gauge.length; i++)
+					{
+						var type = gauge.item(i).getAttribute("type"); 
+						var unit = gauge.item(i).getAttribute("unit");
+						var id = gauge.item(i).getAttribute("id");
+						var value = gauge.item(i).firstChild.nodeValue;
+						
+						data.setValue(i, 0, id);
+						data.setValue(i, 1, parseInt(value));
+					}
+
+					//display output
+					chart.draw(data, options);
+				};
+			
+				gadgets.util.registerOnLoadHandler(makeDOMRequest);
+				
+			</script>
+			<div id="chart_div"></div>
+			<div id="status_div" style="float: left; height: 16px; width: 16px; "></div>
+			<div id="links_div" style="float: left; font-size: x-small; padding: 5px; ">
+				<a href="http://andrew-stephanie.ca/dsc/last24.png" target="_blank" alt="day">day</a>
+				<a href="http://andrew-stephanie.ca/dsc/last7.png" target="_blank" alt="week">week</a>
+				<a href="http://andrew-stephanie.ca/dsc/last31.png" target="_blank" alt="month">month</a>
+				<a href="http://andrew-stephanie.ca/dsc/x24.png" target="_blank" alt="efficiency">efficiency</a>
+				<a href="http://andrew-stephanie.ca/solar" target="_blank" alt="homepage">^2'</a>
+			</div>
+			<div id="time_div" style="font-size: x-small; float: right; margin-top: 5px;"></div>
+
+		]]>
+	</Content>
+</Module>

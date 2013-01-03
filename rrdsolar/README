@@ -1,0 +1,6 @@
+This is a quick and dirty Netbeans Project that will take an XML-exported RRD database
+and convert it to CSV.
+
+To build, run "ant jar".  To run, first export the rrd database into a file
+called "dsctemp.xml".  Then change to the "dist" directory and run "java -jar
+rrdsolar.jar".  The output will be "dsctemp.csv".
